@@ -5,7 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ThreadPool {
 
-    static final int POOL_SIZE = 10;
+    public static final int POOL_SIZE = 10;
 
     /**
      * Get random number between min and max
@@ -73,8 +73,9 @@ class GreatestPrimeWorker implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("[Request] " + this.limit);
+        long threadId = Thread.currentThread().getId() % ThreadPool.POOL_SIZE + 1;
+        System.out.println("[Thread #" + threadId + "] Running task for limit " + this.limit);
         int max = greatestPrimeBelow(this.limit);
-        System.out.println("[Result] Greatest prime number below " + this.limit + ": " + max);
+        System.out.println("[Thread #" + threadId + "] Returned greatest prime number below " + this.limit + ": " + max);
     }
 }
